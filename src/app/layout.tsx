@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { MainProvider } from "@/redux/provider";
 
 import "./globals.css";
+import { Background } from "@/components/background/Background";
 
 
 export default function RootLayout({
@@ -13,10 +14,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex-auto">
+        <div className="flex-auto h-screen w-screen">
           <MainProvider>
             {children}
           </MainProvider>
+          <Background />
         </div>
       </body>
     </html>
