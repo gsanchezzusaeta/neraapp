@@ -9,9 +9,10 @@ def get_all_cuentas(db: Session) :
     return db.query(clients_models.Cuenta).all()
 
 def get_cuenta_by_id(db: Session, id:int) -> clients_models.Cuenta:
-    print(id)
     return db.query(clients_models.Cuenta).filter(clients_models.Cuenta.id == id).first()
 
+def get_cuenta_by_nro(db: Session, nro: int) -> clients_models.Cuenta:
+    return db.query(clients_models.Cuenta).filter(clients_models.Cuenta.numero_de_cuenta == nro).first()
 
 
 def save_cuenta(db: Session,cuenta: cuenta_schemas.CuentaBase):

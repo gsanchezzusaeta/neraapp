@@ -25,3 +25,7 @@ class ClienteUpdate(BaseModel):
     username: Optional[str]
     password: str
     new_password: Optional[str]
+
+class Authenticate(BaseModel):
+    username: str = Field(..., title= "Username del Cliente", max_length=100)
+    password: str = Field(..., title= "Contraseña del Cliente")

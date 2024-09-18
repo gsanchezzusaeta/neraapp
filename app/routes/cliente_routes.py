@@ -31,4 +31,7 @@ def create_cliente(cliente: cliente_schemas.ClienteCreate, db: Session= Depends(
         raise HTTPException(status_code=401, detail="Ya existe un cliente registrado con ese email")    
     return cliente_crud.save_cliente(db, cliente)
 
-
+@router.post("/login")
+def auth_user(login: cliente_schemas.Authenticate, db: Session = Depends(get_db)):
+    
+    return cliente_crud.authenticate_client(db, login.username, login.password)

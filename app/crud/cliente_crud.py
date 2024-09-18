@@ -55,3 +55,16 @@ def cuenta_generator(cliente: cliente_schemas.ClienteCreate):
          monto = cuenta.monto,
          cliente_id = cliente.id
       )
+
+def authenticate_client(db: Session, username: str, password: str):
+   
+    client = get_cliente_by_username(db, username)
+    
+    if not client:
+        return False
+
+    pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+    if not pwd_context.verify(password, client.contrasena):
+        return False
+
+    return 'OK'
