@@ -32,6 +32,8 @@ def save_cliente(db: Session, cliente: cliente_schemas.ClienteCreate):
         username = cliente.username,
         cuentas = []
     )
+
+    print(db_cliente)
     try:
         db.add(db_cliente)
         db.commit()
@@ -43,29 +45,13 @@ def save_cliente(db: Session, cliente: cliente_schemas.ClienteCreate):
             status_code=500, detail="Problemas al guardar el cliente")
     
 
-def update_cliente(db: Session, cliente_new: cliente_schemas.ClienteUpdate):
-    
-    cliente = db.query(clients_models.Cliente).filter(clients_models.Cliente.id == cliente_new.id).first()
-    if cliente == None:
-        raise HTTPException(status_code=400, detail="El cliente no existe")
 
-    try:
-        if cliente_new.nombre: cliente.nombre = cliente_new.nombre
-        if cliente_new.apellido: cliente.apellido = cliente_new.apellido
-        if cliente_new.username: cliente.username = cliente_new.username
-
-        if cliente_new.cuentas:
-            cuentas = []
-            for cuenta in cliente_new.cuenta:
-                db_cuenta = db.query(cuentas_models.Cuenta).filter(cuentas_models.nombre == cuenta).first()
-                if not db_cuenta:
-                    raise HTTPException(status_code=404, detail="Una de las cuentas indicadas no existe")
-                cuentas.append(db_cuenta)
-            cliente.cuentas = cuentas
-        db.commit()
-        return cliente
-    except Exception as e:
-        print(e)
-        db.rollback()
-        raise HTTPException(
-            status_code=500, detail="Problemas al actualizar el cliente")
+def cuenta_generator(cliente: cliente_schemas.ClienteCreate):
+   for cuenta in cliente.cuentas :
+      print(cuenta)
+      yield cuentas_models.Cuenta(
+         nombre = cuenta.nombre,
+         numero_de_cuenta = cuenta.numero_de_cuenta,
+         monto = cuenta.monto,
+         cliente_id = cliente.id
+      )

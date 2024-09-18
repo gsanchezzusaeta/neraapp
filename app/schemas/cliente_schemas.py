@@ -1,6 +1,5 @@
-from optparse import Option
 from typing import List, Optional, Dict, Union
-from .cuenta_schemas import CuentaBase 
+from .cuenta_schemas import Cuenta
 from pydantic import BaseModel, Field
 
 class ClienteBase(BaseModel):
@@ -10,11 +9,11 @@ class ClienteBase(BaseModel):
 
 class ClienteCreate(ClienteBase):
     contrasena: str = Field(..., title= "Contraseña del cliente")
-    cuentas: Optional[list]
+    cuentas: Optional[List[Cuenta]]
 
 class Cliente(ClienteBase):
     id: int
-    cuentas: Optional[List[CuentaBase]] = Field(..., title="Sucursales a las que tiene acceso el usuario")
+    cuentas: List[Cuenta] = []
     class Config:
         orm_mode = True
 
