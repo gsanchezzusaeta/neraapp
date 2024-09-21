@@ -1,21 +1,24 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { User } from "@/types/UserTypes";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { redirect } from 'next/navigation'
 
-const initialState = {
-    counter: 20
+const initialState:User = {
+    username: '',
+    nombre: '',
+    apellido: '',
+    cuentas: []
 }
 
-export const counterSlice =  createSlice({
-    name: 'counter',
+export const userSlice =  createSlice({
+    name: 'user',
     initialState,
     reducers: {
-        increment: (state) => {
-            state.counter += 1
-        },
-        decrement: (state) => {
-            state.counter -= 1
+        setUserLogin: (state, action: PayloadAction<User>) => {
+            state = action.payload
+            redirect('/home')
         },
     }
 })
 
-export const { increment, decrement } = counterSlice.actions
-export default counterSlice.reducer
+export const { setUserLogin } = userSlice.actions
+export default userSlice.reducer

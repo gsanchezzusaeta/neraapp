@@ -1,13 +1,14 @@
 "use client";
-import React from 'react'
-import { decrement, increment } from '@/redux/features/counterSlice';
+import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useGetUsersQuery } from '@/redux/api/userApi';
 
 
-const Login = () => {
+const Home = () => {
 
-  const count = useAppSelector(state => state.counterReducer.counter)
+  // const count = useAppSelector(state => state.counterReducer.counter)
+
+
   const { data, error, isLoading, isFetching } = useGetUsersQuery(null)
 
   const dispatch = useAppDispatch()
@@ -51,4 +52,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Home

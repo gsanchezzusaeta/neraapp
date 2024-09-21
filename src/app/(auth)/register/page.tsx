@@ -2,7 +2,7 @@ import React from 'react'
 
 const Regsiter = () => {
   return (
-    <div>Regsiter</div>
+    <div>Register</div>
   )
 }
 

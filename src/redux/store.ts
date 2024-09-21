@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
-import counterReducer from './features/counterSlice'
+import userReducer from './features/counterSlice'
 import { userAPI } from './api/userApi'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { persistStore } from 'redux-persist'
 
 
 export const store = configureStore({
     reducer: {
-        counterReducer,
+        userReducer,
         [userAPI.reducerPath]: userAPI.reducer
     },
     middleware: (getDefaultMiddleware) => 
