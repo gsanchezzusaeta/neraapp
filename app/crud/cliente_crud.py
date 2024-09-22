@@ -61,10 +61,10 @@ def authenticate_client(db: Session, username: str, password: str):
     client = get_cliente_by_username(db, username)
     
     if not client:
-        return False
+        raise HTTPException(status_code=401, detail="El usuario y contraseña no coinciden")  
 
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     if not pwd_context.verify(password, client.contrasena):
-        return False
-
-    return 'OK'
+        raise HTTPException(status_code=401, detail="El usuario y contraseña no coinciden")  
+    
+    return client

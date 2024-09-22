@@ -7,7 +7,7 @@ from passlib.context import CryptContext
 from .database import Base, engine, SessionLocal, get_db
 from .models.clients_models import Cliente
 from .models.cuentas_models import Cuenta
-from .routes import cliente_routes, cuenta_routes
+from .routes import cliente_routes, cuenta_routes, transaccion_routes
 
 Base.metadata.create_all(bind=engine)
 
@@ -33,9 +33,28 @@ cliente3.cuentas.append(cuenta2)
 cliente4.cuentas.append(cuenta3)
 cliente5.cuentas.append(cuenta4)
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app.include_router(cliente_routes.router, prefix="/client", tags=["cliente"])
-app.include_router(cuenta_routes.router, prefix="/account", tags=["cliente"])
+app = FastAPI()
+
+# You can add additional URLs to this list, for example, the frontend's production domain, or other frontends.
+allowed_origins = [
+    "http://localhost:3000"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["X-Requested-With", "Content-Type"],
+)
+
+
+app.include_router(cliente_routes.router, prefix="/clients", tags=["cliente"])
+app.include_router(cuenta_routes.router, prefix="/accounts", tags=["cliente"])
+app.include_router(transaccion_routes.router, prefix="/transactions", tags=["cliente"])
 
 async def add_data():
     db = get_db()

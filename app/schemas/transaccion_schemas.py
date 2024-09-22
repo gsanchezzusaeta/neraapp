@@ -1,9 +1,26 @@
+from enum import Enum, unique
+from datetime import datetime
 from typing import List, Optional, Dict, Union
-
 from pydantic import BaseModel, Field
 
+
+@unique
+class TipoDeTransaccion(str,Enum):
+    Retiro = 'Retiro'
+    Depósito = 'Depósito'
+
 class TransaccionBase(BaseModel):
-    nombre: str = Field(..., title= "Nombre de cuenta", max_length=50)
-    numero_de_cuenta: str = Field(..., title= "Numero de cuenta")
-    tipo: str = Field(..., title="Tipo de cuenta")
-    monto: float = Field(..., title="Monto de cuenta")
+    monto: float = Field(..., title="Monto de transaccion")
+    fecha_realizada: datetime = Field(..., title="Fecha de transacción")
+    tipo: TipoDeTransaccion
+
+class TransaccionCreate(BaseModel):
+    monto: float = Field(..., title="Monto de transaccion")
+    tipo: TipoDeTransaccion
+    cuenta_id: int = Field(..., title="ID de cuenta")
+
+class Transaccion(TransaccionBase):
+    id: int
+    cuenta_id: int = Field(..., title="ID de cuenta")
+    class Config:
+        orm_mode = True

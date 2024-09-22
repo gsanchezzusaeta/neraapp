@@ -20,12 +20,12 @@ def read_cuenta_monto(id: int, db: Session = Depends(get_db)):
     return cuenta.monto
 
 @router.post("")
-def create_cliente(cuenta: cuenta_schemas.CuentaBase, db: Session= Depends(get_db)):
+def create_cuenta(cuenta: cuenta_schemas.CuentaCreate, db: Session= Depends(get_db)):
     cliente_db = cliente_crud.get_cliente_by_id(db, cuenta.cliente_id)
     if not cliente_db:
         raise HTTPException(status_code=401, detail="El id del usuario especificado no existe") 
     
-    cuenta_by_nro_db = cuenta_crud.get_cuenta_by_nro(cuenta.numero_de_cuenta)
+    cuenta_by_nro_db = cuenta_crud.get_cuenta_by_nro(db,cuenta.numero_de_cuenta)
 
     if cuenta_by_nro_db:
         raise HTTPException(status_code=401, detail="El numero de cuenta ya existe") 
