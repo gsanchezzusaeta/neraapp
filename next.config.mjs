@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    backend_url: 'localhost:8000',
+  },
   async headers() {
     return [
       {
@@ -18,7 +21,7 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/login',
+        destination: '/home',
         permanent: true,
       },
     ]

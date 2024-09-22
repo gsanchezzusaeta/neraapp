@@ -1,27 +1,30 @@
 "use client";
 import LoginForm from '@/components/forms/LoginForm'
 import { usePostLoginMutation } from '@/redux/api/userApi'
-import { setUserLogin } from '@/redux/features/counterSlice';
+import { setLoggedUser } from '@/redux/features/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { ILoginForm } from '@/types/FormTypes'
+import { useRouter } from 'next/navigation';
 import React, { useState, FormEvent, useEffect } from 'react'
 
 const Login = () => {
 
   // const [form, setForm] = useState<ILoginForm>({username: '', password:''})
 
-  const [sendForm, {data, isError, isLoading}] = usePostLoginMutation()
+  const [sendForm, { data, isError, isLoading }] = usePostLoginMutation()
 
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
   useEffect(() => {
     //ERROR
-    if(data === false) console.log(data);
-    else if(data) {
-      dispatch(setUserLogin(data))
+    if (data === false) console.log(data);
+    else if (data) {
+      console.log(data);
+      
+      dispatch(setLoggedUser(({...data, auth: true})))
+      router.push('/home')
     }
   }, [data])
-  
 
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -32,17 +35,12 @@ const Login = () => {
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    username && password && sendForm({ username, password})
-    // const response = await fetch('/api/submit', {
-    //   method: 'POST',
-    //   body: formData,
-    // })
-    // Handle response if necessary
-    // const data = await response.json()
-    // ...
+    username && password && sendForm({ username, password })
   }
 
-  return <div><LoginForm onSubmit={onSubmit} isLoading={isLoading} isError={isError}/></div>
+  return <div className='h-screen flex items-center justify-center'>
+    <LoginForm onSubmit={onSubmit} isLoading={isLoading} isError={isError} />
+    </div>
 }
 
 export default Login

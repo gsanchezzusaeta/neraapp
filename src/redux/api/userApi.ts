@@ -5,18 +5,18 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const userAPI = createApi({
     reducerPath: 'userAPI',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:8000/'
+        baseUrl: 'http://localhost:8000/clients'
     }),
     endpoints: (builder) => ({
         getUsers:  builder.query<User[], null>({
-            query: () => 'client'
+            query: () => ''
         }),
-        getUserById:  builder.query<User[], {id:string}>({
-            query: ({id}) => `client/${id}`
+        getUserById:  builder.query<User, {id?:number}>({
+            query: ({id}) => `/${id}`
         }),
         postLogin: builder.mutation<User|false, ILoginForm>({
             query: (body) => ({
-                url: `client/login`,
+                url: `/login`,
                 method: 'POST',
                 body,
               }),
@@ -25,4 +25,4 @@ export const userAPI = createApi({
 })
 
 
-export const {useGetUsersQuery, useGetUserByIdQuery, usePostLoginMutation} = userAPI
+export const {useGetUsersQuery, useLazyGetUserByIdQuery, usePostLoginMutation} = userAPI

@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.scss";
 import { Background } from "@/components/background/Background";
 import ReduxProvider from "@/redux/redux-provider";
 
