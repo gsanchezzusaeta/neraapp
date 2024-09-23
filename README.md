@@ -150,6 +150,10 @@ scarface sayhellotomylittlefriend
 
 ## Funcionalidades
 
-Una vez ingresados, podremos ver la vista de Home, la cual cuenta con las cuentas (valga la redundancia) bancarias del cliente con el que ingreso.
+Una vez ingresados, podremos ver la vista de Home, la cual contará con las cuentas bancarias del cliente con el que ingreso. Se verá una lista de sus cuentas con Nombre - Nro de Cuenta / Fecha creada / Monto Disponible
 
+En la parte superior de este Card, hay un boton + el cual permite agregar más cuentas al usuario, donde deberemos ingresar *Nombre*, *Numero de Cuenta* (el cual no puede coinicidir con otra cuenta ya creada) y *Monto Inicial*.
 
+En el caso que querramos ver mayor información acerca de cada cuenta, debemos hacer click en cualquier de cards de la ***cuenta***. Este actualizará nuestra *cuenta activa* y podremos ver en el lado derecho de la pantalla la cuenta seleccionada y sus transacciones.
+
+En el card nuevo, veremos dos botones, Ingresar y Retirar, los cuales nos permitirán ***Depositar*** dinero en dicha cuenta o ***Retirarlo*** donde debemos ingresar el monto que querramos.
