@@ -1,5 +1,5 @@
-fastapi
-uvicorn
-sqlalchemy
-pymysql
-passlib
+fastapi==0.115.0
+passlib==1.7.4
+pydantic==1.10.0
+SQLAlchemy==2.0.30
+uvicorn==0.15.0
