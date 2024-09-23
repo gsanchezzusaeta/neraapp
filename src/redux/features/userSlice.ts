@@ -39,8 +39,10 @@ export const userSlice = createSlice({
         addTransaction: (state, action: PayloadAction<TransaccionBalance>) => {
             const activeCuenta = state.loggedUser.cuentas.find(cuenta => cuenta.active)
             if(!activeCuenta) return 
-            
+            console.log(activeCuenta);
             activeCuenta.transacciones.push(action.payload.transaccion)
+            console.log(activeCuenta);
+            
             activeCuenta.monto = action.payload.balance
         },
     }

@@ -36,7 +36,7 @@ function CuentasCard({
                                     {`${cuenta.nombre} - ${cuenta.numero_de_cuenta}`}
                                 </span>
                                 <span className={"italic"}>
-                                    {`${cuenta.fecha_creacion}`}
+                                    Fecha de creación: {`${cuenta.fecha_creacion}`}
                                 </span>
                             </div>
                             <span className={clsx("flex justify-end items-center text-4xl w-1/2 italic", cuenta.monto < 0 ? 'text-red-500' : 'text-green-800')}>

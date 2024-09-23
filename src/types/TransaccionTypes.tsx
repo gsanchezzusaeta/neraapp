@@ -1,7 +1,7 @@
 
 export type Transaccion = {
     id: number,
-    feacha_realizada: string
+    fecha_realizada: string
     tipo: string
     monto: number
     cuenta_id: number
