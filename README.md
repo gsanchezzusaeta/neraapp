@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## FrontEnd
 
-## Getting Started
+Para el FrontEnd se utilizó Next.js 14 junto a Redux Toolkit, el cual también provee RTK Query, similar al React Query, junto a Tailwind y Typescript.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Para poder utilizar en necesario ejecutar el siguiente comando una vez parados sobre la carpeta raiz de la rama:
+
+```
+npm i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Y una vez que esten instaladas todas las dependencias, lo ejecutamos:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Podremos visualizarlo accediendo a la siguiente url:
 
-## Learn More
+```
+http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Estructura
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Se utiliza la siguiente estructura para el proyecto:
 
-## Deploy on Vercel
+```
+├── src
+│   ├── app
+│   │    ├── home
+│   │    │    └── page.tsx
+│   │    ├── login
+│   │    │    └── page.tsx
+│   │    ├── layout.tsx
+│   │    ├── global.scss
+│   │    ├── _shared.scss
+│   │    └── favico.ico
+│   ├── assets
+│   │    └...
+│   ├── components
+│   │    ├── background
+│   │    │    | ...
+│   │    ├── cards
+│   │    │    | ...
+│   │    ├── forms
+│   │    │    | ...
+│   │    ├── loadingSpinner
+│   │    │    | ...
+│   │    ├── modals
+│   │    │    | ...
+│   │    └── navbar
+│   │         | ...
+│   ├── redux
+│   │    ├── api
+│   │    │    ├── cuentaApi.tsx
+│   │    │    ├── transaccionApi.tsx
+│   │    │    └── userApi.tsx
+│   │    ├── features
+│   │    │    └── userSlice.tsx
+│   │    ├── hooks.ts
+│   │    ├── redux-provider.tsx
+│   │    └── store.ts
+|   └── types
+│        └...
+├── next.config.mjs
+...
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+En sí, el Front cuenta con dos vistas, el Login y el Home, pero es necesario pasar por el Login para poder ingresar al Home. Se realiza el chequeo en el `redux-provider.tsx` si el usuario está logueado o no.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Lo que es registro de Cliente, se dejo como `TODO` ya que no es necesaria la creación de clientes en el challenge, pero si se vió necesario un login para poder identificar a aquellos clientes existentes y permitirles el ingreso.
+
+Los clientes creados son (también se pueden visualizar en el `main.py` del Back):
+
+```
+guidosanchez nerapp123
+juancitolopez soyjuanlop
+vivimen soyviviana
+rickyricon rickyfort
+scarface sayhellotomylittlefriend
+```
+
+## Funcionalidades
+
+Una vez ingresados, podremos ver la vista de Home, la cual contará con las cuentas bancarias del cliente con el que ingreso. Se verá una lista de sus cuentas con Nombre - Nro de Cuenta / Fecha creada / Monto Disponible
+
+En la parte superior de este Card, hay un boton + el cual permite agregar más cuentas al usuario, donde deberemos ingresar *Nombre*, *Numero de Cuenta* (el cual no puede coinicidir con otra cuenta ya creada) y *Monto Inicial*.
