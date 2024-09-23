@@ -32,7 +32,7 @@ def create_cuenta(cuenta: cuenta_schemas.CuentaCreate, db: Session= Depends(get_
 
     return cuenta_crud.save_cuenta(db, cuenta)
 
-@router.delete("")
-def create_cliente(id: int, db: Session= Depends(get_db)):  
-    return cuenta_crud.delete_cuenta(db, id)
+# @router.delete("")
+# def create_cliente(id: int, db: Session= Depends(get_db)):  
+#     return cuenta_crud.delete_cuenta(db, id)
 
