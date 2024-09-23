@@ -2,7 +2,6 @@ import CuentaModal from "@/components/modals/CuentaModal";
 import { useAppSelector } from "@/redux/hooks";
 import { Cuenta } from "@/types/CuentaTypes";
 import clsx from "clsx";
-import { MouseEventHandler, useEffect } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 
 

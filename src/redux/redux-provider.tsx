@@ -3,9 +3,10 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { persistStore } from "redux-persist";
 import { useAppSelector } from "./hooks";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { redirect } from "next/navigation";
 import { usePathname } from 'next/navigation'
+import LoadingSpinner from "@/components/loadingSpinner/LoadingSpinner";
 
 persistStore(store)
 export default function ReduxProvider({
@@ -16,7 +17,9 @@ export default function ReduxProvider({
 
     return (
         <Provider store={store}>
-            <Validator />
+            <Suspense fallback={<LoadingSpinner />}>
+                <Validator />
+            </Suspense>
             {children}
         </Provider>)
 }

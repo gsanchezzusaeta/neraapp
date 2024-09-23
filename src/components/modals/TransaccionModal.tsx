@@ -1,16 +1,12 @@
 import React, { FormEvent, Fragment, useEffect } from 'react'
 import { IconType } from 'react-icons'
-import type { ModalOptions, ModalInterface } from 'flowbite'
 import { Modal } from "flowbite-react";
 import { useState } from "react";
-import CuentaForm from '../forms/CuentaForm';
-import { useLazyGetUserByIdQuery } from '@/redux/api/userApi';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import Swal from 'sweetalert2'
 import TransaccionForm from '../forms/TransaccionForm';
 import clsx from 'clsx';
 import { useCreateTransaccionMutation } from '@/redux/api/transaccionApi';
-// import { addTransaction } from '@/redux/features/appSlice';
 import { useLazyGetBalanceByIdQuery } from '@/redux/api/cuentaApi';
 import { addTransaction } from '@/redux/features/userSlice';
 
@@ -33,17 +29,15 @@ const TransaccionModal = ({ Icon, id, tipo, classes, btnText, iconSize, iconColo
     }
 
     const dispatch = useAppDispatch()
-    // const state = useAppSelector(state => state.persistedReducer)
 
     useEffect(() => {
         if (data) trigger({id})
     }, [data])
 
     useEffect(() => {
-      
-        if(balance) {
+        if(balance && data) {
             setOpenModal(false)
-            dispatch(addTransaction({transaccion: data, balance})),
+            dispatch(addTransaction({transaccion: data, balance: parseFloat(balance.toFixed(2))})),
             Swal.fire({
                 icon: "success",
                 title: "Se realizó la transacción con éxito",
@@ -52,6 +46,18 @@ const TransaccionModal = ({ Icon, id, tipo, classes, btnText, iconSize, iconColo
             })
         }
     }, [balance])
+
+    useEffect(() => {
+      
+        if(isError && tipo === 'Retiro') {
+            Swal.fire({
+                icon: "error",
+                title: 'Ups.. hubo un problema!',
+                text: "Chequea que el monto a retirar sea menor o igual al monto de su cuenta",
+                showConfirmButton: false,
+            })
+        }
+    }, [isError])
     
     return (
         <Fragment>
@@ -64,7 +70,7 @@ const TransaccionModal = ({ Icon, id, tipo, classes, btnText, iconSize, iconColo
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Header>Realizar {tipo}</Modal.Header>
                 <Modal.Body>
-                    <TransaccionForm tipo={tipo} onSubmit={onSubmit} isError={isError} isLoading={isLoading} />
+                    <TransaccionForm tipo={tipo} onSubmit={onSubmit} isError={isError} isLoading={isLoading} setOpenModal={setOpenModal} />
                 </Modal.Body>
             </Modal>
         </Fragment >

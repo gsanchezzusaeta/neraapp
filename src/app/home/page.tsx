@@ -4,8 +4,6 @@ import CuentasCard from '@/components/cards/cuentasUser/CuentasCard';
 import { NavBar } from '@/components/navbar/navbar'
 import { setActiveCuenta } from '@/redux/features/userSlice';
 import { useAppSelector } from '@/redux/hooks';
-import { Cuenta } from '@/types/CuentaTypes';
-import { log } from 'console';
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 
@@ -13,7 +11,6 @@ const Home = () => {
 
   const state = useAppSelector(state => state.persistedReducer)
   const active_cuenta = useAppSelector(state => state.persistedReducer.loggedUser.cuentas.find(cuenta => cuenta.active))
-
 
   const dispatch = useDispatch()
 

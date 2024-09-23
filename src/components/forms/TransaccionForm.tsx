@@ -3,17 +3,19 @@
 import React, { FormEvent } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
-
 function TransaccionForm({
+    
     onSubmit,
     isLoading,
     isError,
-    tipo
+    tipo,
+    setOpenModal
 }: {
     onSubmit: (e: FormEvent<HTMLFormElement>) => void,
     isLoading: boolean,
     isError: boolean,
-    tipo: string
+    tipo: string,
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }) {
 
     return (
@@ -32,7 +34,7 @@ function TransaccionForm({
                 {/* <p className="text-red-500 text-xs italic">Please choose a password.</p> */}
             </div>
             <div className="flex flex-row items-center justify-between gap-3">
-                <button className="w-full text-green-800 bg-white border-2 border-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                <button onClick={() => setOpenModal(false)} className="w-full text-green-800 bg-white border-2 border-green-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                     Cancelar
                 </button>
                 <button type="submit" className="w-full  bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">

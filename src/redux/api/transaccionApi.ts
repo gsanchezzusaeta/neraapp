@@ -1,4 +1,3 @@
-import { Cuenta, CuentaCreate } from "@/types/CuentaTypes";
 import { TransaccionCreate, Transaccion } from "@/types/TransaccionTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 

@@ -1,5 +1,4 @@
-import { Cuenta } from "@/types/CuentaTypes";
-import { Transaccion, TransaccionBalance } from "@/types/TransaccionTypes";
+import {  TransaccionBalance } from "@/types/TransaccionTypes";
 import { User } from "@/types/UserTypes";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
@@ -14,9 +13,6 @@ export const initialState: IAppState = {
         auth: false
     },
 }
-
-
-
 
 interface IAppState {
     loggedUser: User,
@@ -34,6 +30,7 @@ export const userSlice = createSlice({
         
             const cuenta = state.loggedUser.cuentas.find(cuenta => cuenta.id === action.payload.id)
             if(!cuenta) return
+            if(cuenta.id === prevCuentaActive?.id) return
             cuenta.active = true
 
             if(!prevCuentaActive) return

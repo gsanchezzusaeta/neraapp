@@ -41,7 +41,15 @@ const CuentaInfo = ({ cuenta }: { cuenta: Cuenta | undefined }) => {
                 </div>
             </div>
             <hr className="mb-4" />
-            <DataTable columns={cuentaInfoCols} data={cuenta.transacciones} pagination={true} />
+            <DataTable
+                columns={cuentaInfoCols}
+                data={cuenta.transacciones}
+                pagination={true}
+                noDataComponent={
+                    <div className='flex w-full h-full p-9 justify-center bg-slate-200 '>
+                        No se encontraron transacciones
+                    </div>
+                } />
         </div>
 
 }

@@ -1,7 +1,6 @@
 import React, { FormEvent, Fragment, useEffect } from 'react'
 import { IconType } from 'react-icons'
-import type { ModalOptions, ModalInterface } from 'flowbite'
-import { Button, Modal } from "flowbite-react";
+import { Modal } from "flowbite-react";
 import { useState } from "react";
 import CuentaForm from '../forms/CuentaForm';
 import { useCreateCuentaMutation } from '@/redux/api/cuentaApi';
@@ -48,6 +47,20 @@ const CuentaModal = ({ Icon, id }: { Icon: IconType, id: number }) => {
         }
     }, [user])
 
+    useEffect(() => {
+      
+        if(isError) {
+            Swal.fire({
+                icon: "success",
+                title: "Ups... Hubo un problema!",
+                text: "No se pudo agregar la cuenta de forma correcta",
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+      
+    }, [isError])
+    
 
     return (
         <Fragment>
@@ -57,7 +70,7 @@ const CuentaModal = ({ Icon, id }: { Icon: IconType, id: number }) => {
             <Modal show={openModal} onClose={() => setOpenModal(false)}>
                 <Modal.Header>Agregar cuenta</Modal.Header>
                 <Modal.Body>
-                    <CuentaForm onSubmit={onSubmit} isError={isError} isLoading={isLoading} />
+                    <CuentaForm setOpenModal={setOpenModal} onSubmit={onSubmit} isError={isError} isLoading={isLoading} />
                 </Modal.Body>
             </Modal>
         </Fragment >

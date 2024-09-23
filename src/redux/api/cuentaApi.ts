@@ -1,5 +1,4 @@
 import { Cuenta, CuentaCreate } from "@/types/CuentaTypes";
-import { User } from "@/types/UserTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const cuentaApi = createApi({

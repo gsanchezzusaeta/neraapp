@@ -2,9 +2,9 @@
 import LoginForm from '@/components/forms/LoginForm'
 import { usePostLoginMutation } from '@/redux/api/userApi'
 import { setLoggedUser } from '@/redux/features/userSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
-import React, { useState, FormEvent, useEffect } from 'react'
+import React, { FormEvent, useEffect } from 'react'
 
 const Login = () => {
 

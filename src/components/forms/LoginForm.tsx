@@ -3,7 +3,6 @@
 import React, { FormEvent } from 'react'
 import LoadingSpinner from '../loadingSpinner/LoadingSpinner';
 
-
 function LoginForm({
     onSubmit,
     isLoading,
