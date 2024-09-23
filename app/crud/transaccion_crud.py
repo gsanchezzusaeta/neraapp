@@ -8,8 +8,8 @@ from ..schemas import transaccion_schemas
 def save_transaction(db: Session,transaccion: transaccion_schemas.TransaccionCreate):
 
     cuenta_db = db.query(cuentas_models.Cuenta).filter(cuentas_models.Cuenta.id == transaccion.cuenta_id).first()
-
-    if transaccion.tipo == 'Retiro' and cuenta_db.monto < transaccion.monto:
+    print(transaccion.monto, cuenta_db.monto)
+    if transaccion.tipo == 'Retiro' and cuenta_db.monto <= transaccion.monto:
          raise HTTPException(
             status_code=500, detail="El monto que intenta retirar es mayor a la cantidad que tiene en la cuenta")
 
