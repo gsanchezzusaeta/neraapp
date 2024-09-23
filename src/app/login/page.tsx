@@ -5,6 +5,7 @@ import { setLoggedUser } from '@/redux/features/userSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { useRouter } from 'next/navigation';
 import React, { FormEvent, useEffect } from 'react'
+import Swal from 'sweetalert2';
 
 const Login = () => {
 
@@ -25,6 +26,20 @@ const Login = () => {
       router.push('/home')
     }
   }, [data])
+
+  useEffect(() => {
+    
+    if(isError){
+      Swal.fire({
+        icon: "error",
+        title: 'Ups.. hubo un problema!',
+        text: "Chequea que las credenciales ingresadas sean las correctas",
+        showConfirmButton: false,
+    })
+    }
+
+  }, [isError])
+  
 
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
