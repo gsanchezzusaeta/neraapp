@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Challenge Nera
 
-## Getting Started
+Se realizó el Challenge trabajando el FrontEnd por un lado y el BackEnd sobre otro, cada uno en una rama diferente.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Para poder reproducir la aplicación es necesario realizar clonarse o bajarse como zip las dos siguientes *branches*:
+
+```
+frontend 
+backend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## BackEnd
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+El backend se trabajo sobre Python utilizando FastAPI en conjunto con sqlalchemy y Sqlite. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Para poder utilizar en necesario ejecutar el siguiente comando una vez parados sobre la carpeta raiz de la rama:
 
-## Learn More
+```
+pip install -r requirements.txt
+```
 
-To learn more about Next.js, take a look at the following resources:
+Y una vez que esten instaladas todas las dependencias, lo ejecutamos:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Estructura
 
-## Deploy on Vercel
+Se utiliza la siguiente estructura para el proyecto:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── app
+│   ├── crud
+│   │    ├── ..._crud.py
+│   │    ... 
+│   ├── models
+│   │    ├── ..._models.py
+│   │    ... 
+│   ├── routes
+│   │    ├── ..._routes.py
+│   │    ...  
+|   ├── schemas
+│   │    ├── ..._schemas.py
+│   │    ...  
+│   ├── config.py
+│   ├── database.py
+│   └── main.py
+├── .env
+├── .gitignore
+└── requirements.txt
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+
+Se realiza dicha separación donde mantendremos los **modelos** que utilizará nuestra BD, los **schemas** que utilizará FastAPI para interpretar dicha data, los **crud** donde realizamos toda la lógica contra la BD y las **routes** que serán nuestros endpoints.
+
+En el archivo `main.py` se establece la relación entre cada route y su prefijo. Si ya tiene el módulo corriendo, se puede visualizar los docs en la siguiente url:
+
+```
+http://localhost:8000/docs
+```
+
+También en dicho archivo creamos data *default* en la BD integrada la cual se creará una vez nosotros inicialicemos el proyecto.
+
+
+## FrontEnd
+
+Para el FrontEnd se utilizó Next.js 14 junto a Redux Toolkit, el cual también provee RTK Query, similar al React Query, junto a Tailwind y Typescript.
+
+
+Para poder utilizar en necesario ejecutar el siguiente comando una vez parados sobre la carpeta raiz de la rama:
+
+```
+npm i
+```
+
+Y una vez que esten instaladas todas las dependencias, lo ejecutamos:
+
+```
+npm run dev
+```
+
+Podremos visualizarlo accediendo a la siguiente url:
+
+```
+http://localhost:3000
+```
+
+
+### Estructura
+
+Se utiliza la siguiente estructura para el proyecto:
+
+```
+├── src
+│   ├── app
+│   │    ├── home
+│   │    │    └── page.tsx
+│   │    ├── login
+│   │    │    └── page.tsx
+│   │    ├── layout.tsx
+│   │    ├── global.scss
+│   │    ├── _shared.scss
+│   │    └── favico.ico
+│   ├── assets
+│   │    └...
+│   ├── components
+│   │    ├── background
+│   │    │    | ...
+│   │    ├── cards
+│   │    │    | ...
+│   │    ├── forms
+│   │    │    | ...
+│   │    ├── loadingSpinner
+│   │    │    | ...
+│   │    ├── modals
+│   │    │    | ...
+│   │    └── navbar
+│   │         | ...
+│   ├── redux
+│   │    ├── api
+│   │    │    ├── cuentaApi.tsx
+│   │    │    ├── transaccionApi.tsx
+│   │    │    └── userApi.tsx
+│   │    ├── features
+│   │    │    └── userSlice.tsx
+│   │    ├── hooks.ts
+│   │    ├── redux-provider.tsx
+│   │    └── store.ts
+|   └── types
+│        └...
+├── next.config.mjs
+...
+```
+
+En sí, el Front cuenta con dos vistas, el Login y el Home, pero es necesario pasar por el Login para poder ingresar al Home. Se realiza el chequeo en el `redux-provider.tsx` si el usuario está logueado o no.
+
+Lo que es registro de Cliente, se dejo como `TODO` ya que no es necesaria la creación de clientes en el challenge, pero si se vió necesario un login para poder identificar a aquellos clientes existentes y permitirles el ingreso.
+
+Los clientes creados son (también se pueden visualizar en el `main.py` del Back):
+
+```
+guidosanchez nerapp123
+juancitolopez soyjuanlop
+vivimen soyviviana
+rickyricon rickyfort
+scarface sayhellotomylittlefriend
+```
+
+## Funcionalidades
+
+Una vez ingresados, podremos ver la vista de Home, la cual cuenta con las cuentas (valga la redundancia) bancarias del cliente con el que ingreso.
+
+
